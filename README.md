@@ -1,29 +1,31 @@
 # Social Harvest
 
-Social Harvest 是一个面向社交平台运营数据的 CLI 工具。它把抖音、微信视频号等平台的内容、评论、回复、弹幕、私信、指标和媒体采集流程收束成可重复运行的命令，并把结果写入 SCRM、飞书多维表格或结构化报告。
+[中文文档](README.zh-CN.md)
 
-它的目标不是让用户记住复杂参数，而是让本地 AI Agent 或操作者用稳定的一线命令完成“检查环境、同步今天数据、补抓历史、读取报告、恢复失败”这些日常工作。
+Social Harvest is an AI-friendly CLI for social media operations data. It turns collection workflows for Douyin and Weixin Channels into repeatable commands, then writes structured content, comments, replies, danmaku, private messages, metrics, and media metadata into SCRM systems, Feishu Base, or local reports.
 
-## 功能特点
+The project is designed for daily operator workflows: check the environment, sync today's data, backfill history, read structured reports, and recover failed steps without asking users to remember long command lines.
 
-- **一线命令清晰**：`check`、`daily:*`、`history:*`、`daily:failed` 覆盖常见运营任务。
-- **AI 友好**：内置 agent runbook、用户话术卡和结构化任务报告，方便 AI 执行命令后汇报结果。
-- **结构化产物**：每次任务生成 `daily-report.json`、`task-report.json`、`task-events.jsonl`、`task-state.json` 和 checkpoint。
-- **多平台采集**：支持抖音自己账号、抖音公开主页、微信视频号助手等场景。
-- **多目的地写入**：支持 SCRM / MySQL 写入、飞书 Base 写入和统一 sink runner。
-- **可续跑和可恢复**：历史补抓和全量任务使用 checkpoint，失败步骤可按报告补跑。
-- **终端输出可读**：默认展示人能看懂的进度和摘要，原始诊断细节进入报告文件。
+## Highlights
 
-## 平台能力
+- **Clear frontline commands**: `check`, `daily:*`, `history:*`, and `daily:failed` cover the common operating loop.
+- **AI-friendly workflow**: agent prompts, runbooks, command cards, and structured task reports help local AI agents run the tool and summarize results.
+- **Structured artifacts**: each task can produce `daily-report.json`, `task-report.json`, `task-events.jsonl`, `task-state.json`, and checkpoints.
+- **Multi-platform collection**: supports owned Douyin accounts, public Douyin profiles, and Weixin Channels assistant workflows.
+- **Multiple output targets**: supports SCRM / MySQL writes, Feishu Base publishing, and a shared sink runner.
+- **Resumable runs**: history and full-sync tasks use checkpoints, and failed steps can be retried from task reports.
+- **Readable terminal output**: human-facing progress stays concise while raw events and diagnostics are written to report files.
 
-| 平台 | 自己账号 | 公开主页 | 评论/回复 | 弹幕 | 私信 | SCRM 写入 | 历史补抓 |
+## Platform Coverage
+
+| Platform | Owned Account | Public Profile | Comments / Replies | Danmaku | Private Messages | SCRM Sync | History Backfill |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 抖音 | 支持 | 支持 | 支持 | 支持 | 支持 | 支持 | 支持 |
-| 微信视频号 | 支持 | 不适用 | 支持 | 支持 | 支持 | 支持 | 支持 |
+| Douyin | Supported | Supported | Supported | Supported | Supported | Supported | Supported |
+| Weixin Channels | Supported | N/A | Supported | Supported | Supported | Supported | Supported |
 
-## 快速开始
+## Quick Start
 
-需要 Node.js 24.x。
+Social Harvest requires Node.js 24.x.
 
 ```bash
 node -v
@@ -31,67 +33,67 @@ npm install --omit=dev
 npm run check
 ```
 
-Social Harvest 使用项目依赖里的 `@jackwener/opencli`。普通用户不需要全局安装 `opencli`，也不需要准备 OpenCLI 主仓库。
+Social Harvest uses `@jackwener/opencli` from project dependencies. Users do not need to install `opencli` globally or prepare a separate OpenCLI repository.
 
-## 配置
+## Configuration
 
-复制本机配置：
+Create a local config file:
 
 ```bash
 cp config.example.json config.local.json
 ```
 
-然后按实际环境填写：
+Then fill in the values for your environment:
 
-- SCRM / MySQL 数据库连接
-- 飞书应用配置，可选
-- AI 服务配置，可选
-- 平台账号别名和运行参数
+- SCRM / MySQL connection
+- Feishu application settings, optional
+- AI service settings, optional
+- platform account aliases and runtime options
 
-`config.local.json` 是本机私密配置，不要提交到仓库。完整说明见 [docs/config-reference.md](docs/config-reference.md)。
+`config.local.json` is local and private. Do not commit it. See [docs/config-reference.md](docs/config-reference.md) for the full configuration reference.
 
-## 常用命令
+## Common Commands
 
-| 目的 | 命令 |
+| Goal | Command |
 | --- | --- |
-| 检查环境、配置和登录态 | `npm run check` |
-| 跑抖音日常同步 | `npm run daily:douyin` |
-| 跑视频号日常同步 | `npm run daily:weixin-channels` |
-| 跑全部平台日常同步 | `npm run daily:all` |
-| 抖音自己账号历史补抓 | `npm run history:douyin` |
-| 抖音公开主页历史补抓 | `npm run history:douyin-public` |
-| 视频号历史补抓 | `npm run history:weixin-channels` |
-| 按报告补跑失败步骤 | `npm run daily:failed -- samples/tasks/<task>/daily-report.json` |
-| 把已有产物写入飞书 Base | `npm run publish:feishu -- <参数>` |
-| 把已有产物写入声明的 sink | `npm run sink:run -- <参数>` |
-| 把进度同步到远端页面 | `npm run share:run -- <发送器参数> -- <采集命令>` |
+| Check environment, config, and login state | `npm run check` |
+| Run daily Douyin sync | `npm run daily:douyin` |
+| Run daily Weixin Channels sync | `npm run daily:weixin-channels` |
+| Run all daily platform syncs | `npm run daily:all` |
+| Backfill owned Douyin account history | `npm run history:douyin` |
+| Backfill public Douyin profile history | `npm run history:douyin-public` |
+| Backfill Weixin Channels history | `npm run history:weixin-channels` |
+| Retry failed steps from a report | `npm run daily:failed -- samples/tasks/<task>/daily-report.json` |
+| Publish existing artifacts to Feishu Base | `npm run publish:feishu -- <options>` |
+| Write existing artifacts to configured sinks | `npm run sink:run -- <options>` |
+| Share progress to a remote status page | `npm run share:run -- <sender options> -- <collection command>` |
 
-`daily:*` 是日常增量同步。只有明确要“历史、全量、从头补齐、一直抓到没有更多”时，才使用 `history:*`。
+Use `daily:*` for normal incremental work. Use `history:*` only when you explicitly need historical backfill or a full catch-up run.
 
-## 让 AI 帮你操作
+## AI Operator Workflow
 
-你可以把仓库交给本地 AI，然后直接说：
-
-```text
-帮我检查一下 Social Harvest 环境，看看今天能不能正常运行。
-```
-
-或：
+You can hand this repository to a local AI agent and ask:
 
 ```text
-帮我同步今天的抖音数据，完成后告诉我写入了多少。
+Check whether Social Harvest is ready to run today.
 ```
 
-如果 AI 需要规则提示，可以让它先读：
+or:
+
+```text
+Sync today's Douyin data and tell me how many records were written.
+```
+
+Useful entry points for AI-assisted operation:
 
 - [docs/ai-operator-prompt.md](docs/ai-operator-prompt.md)
 - [docs/user-ai-command-card.md](docs/user-ai-command-card.md)
 - [docs/agent-runbook.md](docs/agent-runbook.md)
 - [docs/user-first-run.md](docs/user-first-run.md)
 
-## 运行结果
+## Task Outputs
 
-任务通常会在 `samples/tasks/` 下生成报告：
+Task reports are usually written under `samples/tasks/`:
 
 - `daily-report.json`
 - `task-report.json`
@@ -99,42 +101,42 @@ cp config.example.json config.local.json
 - `task-state.json`
 - `checkpoint.json`
 
-AI 或操作者汇报结果时应优先读取报告文件，而不是只看终端日志。
+Operators and AI agents should summarize from report files first instead of relying only on terminal logs.
 
-## 文档
+## Documentation
 
-| 主题 | 文档 |
+| Topic | Document |
 | --- | --- |
-| 第一次使用 | [docs/user-first-run.md](docs/user-first-run.md) |
-| 命令清单 | [docs/commands.md](docs/commands.md) |
-| 配置说明 | [docs/config-reference.md](docs/config-reference.md) |
-| AI 操作 | [docs/ai-operator-prompt.md](docs/ai-operator-prompt.md)、[docs/agent-runbook.md](docs/agent-runbook.md) |
-| 平台能力 | [docs/platforms/platform-capability-matrix.md](docs/platforms/platform-capability-matrix.md) |
-| SCRM / 飞书写入 | [docs/multi-platform-sinks.md](docs/multi-platform-sinks.md) |
-| 排障 | [docs/faq.md](docs/faq.md)、[docs/advanced-diagnostics.md](docs/advanced-diagnostics.md) |
+| First run | [docs/user-first-run.md](docs/user-first-run.md) |
+| Command reference | [docs/commands.md](docs/commands.md) |
+| Configuration | [docs/config-reference.md](docs/config-reference.md) |
+| AI operation | [docs/ai-operator-prompt.md](docs/ai-operator-prompt.md), [docs/agent-runbook.md](docs/agent-runbook.md) |
+| Platform capabilities | [docs/platforms/platform-capability-matrix.md](docs/platforms/platform-capability-matrix.md) |
+| SCRM / Feishu writes | [docs/multi-platform-sinks.md](docs/multi-platform-sinks.md) |
+| Troubleshooting | [docs/faq.md](docs/faq.md), [docs/advanced-diagnostics.md](docs/advanced-diagnostics.md) |
 
-完整入口见 [docs/README.md](docs/README.md)。
+See [docs/README.md](docs/README.md) for the full documentation index.
 
-## 仓库结构
+## Repository Layout
 
 ```text
 social-harvest/
-├── adapters/      # 平台 OpenCLI 适配器
-├── docs/          # 用户指南、AI runbook、平台说明和数据写入说明
-├── runner/        # 任务执行、事件、报告和 checkpoint 内核
-├── samples/       # 本地运行产物目录
-├── scripts/       # CLI 入口、平台流程、sink 写入和诊断工具
-└── tasks/         # runner 任务计划样例
+├── adapters/      # Platform OpenCLI adapters
+├── docs/          # User guides, AI runbooks, platform notes, and sink docs
+├── runner/        # Task execution, events, reports, and checkpoints
+├── samples/       # Local task output folder
+├── scripts/       # CLI entries, platform workflows, sink writes, diagnostics
+└── tasks/         # Example runner task plans
 ```
 
-## 参与贡献
+## Contributing
 
-欢迎提交 bug report、功能建议和文档改进。贡献前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。
+Bug reports, feature requests, and documentation improvements are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
 
-## 安全
+## Security
 
-请不要提交 `config.local.json`、密钥、cookies、私信、真实媒体文件或生产数据库导出。更多说明见 [SECURITY.md](SECURITY.md)。
+Do not commit `config.local.json`, secrets, cookies, private messages, real media files, or production database exports. See [SECURITY.md](SECURITY.md) for details.
 
 ## License
 
-Apache-2.0. See the `LICENSE` file.
+Apache-2.0. See [LICENSE](LICENSE).
