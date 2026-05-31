@@ -1,0 +1,15 @@
+# Local runtime dependencies and user secrets
+node_modules/
+config.local.json
+.env
+.env.*
+
+# Local run output
+samples/tasks/*
+samples/douyin/
+samples/weixin-channels/
+delivery/
+
+# OS/editor noise
+.DS_Store
+*.log

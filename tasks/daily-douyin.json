@@ -1,0 +1,25 @@
+{
+  "id": "daily-douyin",
+  "concurrency": "sequential",
+  "tasks": [
+    {
+      "task": "diagnostic",
+      "args": [
+        "--check-platforms",
+        "--platform",
+        "douyin"
+      ]
+    },
+    {
+      "platform": "douyin",
+      "task": "creator-center",
+      "args": [
+        "--work-limit",
+        "50",
+        "--comment-work-limit",
+        "50",
+        "--sink-apply"
+      ]
+    }
+  ]
+}

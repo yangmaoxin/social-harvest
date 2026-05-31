@@ -1,0 +1,42 @@
+name: Bug report
+description: 报告可复现的 Social Harvest 问题。
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 问题概述
+      description: 哪一步失败了？你原本预期发生什么？
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: 执行命令
+      description: 请贴出实际命令，并移除密钥、token 和隐私信息。
+      placeholder: npm run daily:douyin
+    validations:
+      required: true
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: 报告产物
+      description: 可以贴 daily-report.json 或 task-report.json 的摘要。不要贴密钥、cookies、私信或原始媒体。
+    validations:
+      required: false
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境
+      description: Node 版本、操作系统、平台账号类型，以及相关浏览器/OpenCLI 状态。
+      placeholder: Node 24.x, macOS, 抖音自己账号
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: 补充信息
+      description: 任何有助于复现或缩小范围的信息。
+    validations:
+      required: false

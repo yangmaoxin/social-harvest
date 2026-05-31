@@ -1,0 +1,21 @@
+{
+  "id": "daily-weixin-channels-messages",
+  "concurrency": "sequential",
+  "tasks": [
+    {
+      "task": "diagnostic",
+      "args": [
+        "--check-platforms",
+        "--platform",
+        "weixin-channels"
+      ]
+    },
+    {
+      "platform": "weixin-channels",
+      "task": "creator-messages",
+      "args": [
+        "--sink-apply"
+      ]
+    }
+  ]
+}

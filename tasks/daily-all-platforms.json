@@ -1,0 +1,30 @@
+{
+  "id": "daily-all-platforms",
+  "concurrency": "sequential",
+  "tasks": [
+    {
+      "task": "diagnostic",
+      "args": [
+        "--check-platforms"
+      ]
+    },
+    {
+      "platform": "weixin-channels",
+      "task": "creator-center",
+      "args": [
+        "--sink-apply"
+      ]
+    },
+    {
+      "platform": "douyin",
+      "task": "creator-center",
+      "args": [
+        "--work-limit",
+        "50",
+        "--comment-work-limit",
+        "50",
+        "--sink-apply"
+      ]
+    }
+  ]
+}

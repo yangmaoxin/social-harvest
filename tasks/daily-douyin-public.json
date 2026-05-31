@@ -1,0 +1,14 @@
+{
+  "id": "daily-douyin-public",
+  "concurrency": "sequential",
+  "tasks": [
+    {
+      "task": "diagnostic",
+      "args": ["--check-platforms", "--platform", "douyin"]
+    },
+    {
+      "platform": "douyin",
+      "task": "public-content"
+    }
+  ]
+}

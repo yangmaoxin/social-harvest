@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://social-harvest.local/schemas/task-state.schema.json",
+  "title": "Social Harvest Task State",
+  "type": "object",
+  "required": [
+    "task_id",
+    "status",
+    "step",
+    "message",
+    "started_at",
+    "updated_at",
+    "output_dir",
+    "task_events_file",
+    "task_state_file",
+    "task_report_file",
+    "counters",
+    "warnings",
+    "artifacts",
+    "recent_events"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "task_id": { "type": "string" },
+    "platform": { "type": "string" },
+    "platform_label": { "type": "string" },
+    "task": { "type": "string" },
+    "task_label": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "running", "success", "warning", "partial", "failed", "cancelled"]
+    },
+    "step": { "type": "string" },
+    "message": { "type": "string" },
+    "started_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "finished_at": { "type": "string" },
+    "duration_ms": { "type": "number" },
+    "output_dir": { "type": "string" },
+    "platform_output_dir": { "type": "string" },
+    "task_events_file": { "type": "string" },
+    "task_state_file": { "type": "string" },
+    "task_report_file": { "type": "string" },
+    "counters": { "$ref": "#/$defs/counters" },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "error": { "type": "string" },
+    "failure_category": {
+      "type": "string",
+      "enum": [
+        "chrome_unreachable",
+        "opencli_unavailable",
+        "platform_not_logged_in",
+        "platform_access_unavailable",
+        "account_missing",
+        "database_unavailable",
+        "ai_unavailable",
+        "report_missing",
+        "report_damaged",
+        "unknown"
+      ]
+    },
+    "failure_title": { "type": "string" },
+    "artifacts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/artifact" }
+    },
+    "recent_events": {
+      "type": "array",
+      "items": { "$ref": "task-event.schema.json" }
+    }
+  },
+  "$defs": {
+    "counters": {
+      "type": "object",
+      "additionalProperties": { "type": "number" },
+      "properties": {
+        "accounts": { "type": "number" },
+        "works": { "type": "number" },
+        "comments": { "type": "number" },
+        "private_messages": { "type": "number" },
+        "checks": { "type": "number" },
+        "failed_checks": { "type": "number" },
+        "warning_checks": { "type": "number" }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "required": ["label", "type", "path"],
+      "additionalProperties": true,
+      "properties": {
+        "label": { "type": "string" },
+        "type": { "type": "string", "enum": ["file", "directory"] },
+        "path": { "type": "string" }
+      }
+    }
+  }
+}

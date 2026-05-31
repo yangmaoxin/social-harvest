@@ -1,0 +1,44 @@
+{
+  "id": "daily-all-platforms-content",
+  "concurrency": "sequential",
+  "tasks": [
+    {
+      "task": "diagnostic",
+      "args": [
+        "--check-platforms"
+      ]
+    },
+    {
+      "platform": "weixin-channels",
+      "task": "creator-content",
+      "args": [
+        "--sink-apply"
+      ]
+    },
+    {
+      "platform": "weixin-channels",
+      "task": "creator-account",
+      "args": [
+        "--sink-apply"
+      ]
+    },
+    {
+      "platform": "douyin",
+      "task": "creator-content",
+      "args": [
+        "--work-limit",
+        "50",
+        "--comment-work-limit",
+        "50",
+        "--sink-apply"
+      ]
+    },
+    {
+      "platform": "douyin",
+      "task": "creator-account",
+      "args": [
+        "--sink-apply"
+      ]
+    }
+  ]
+}

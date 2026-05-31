@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://social-harvest.local/schemas/task-report.schema.json",
+  "title": "Social Harvest Task Report",
+  "type": "object",
+  "required": [
+    "task_id",
+    "status",
+    "started_at",
+    "finished_at",
+    "duration_ms",
+    "output_dir",
+    "task_events_file",
+    "task_state_file",
+    "task_report_file",
+    "counters",
+    "summary_text",
+    "artifacts",
+    "recoverable",
+    "next_actions",
+    "error"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "task_id": { "type": "string" },
+    "platform": { "type": "string" },
+    "platform_label": { "type": "string" },
+    "task": { "type": "string" },
+    "task_label": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "running", "success", "warning", "partial", "failed", "cancelled"]
+    },
+    "started_at": { "type": "string" },
+    "finished_at": { "type": "string" },
+    "duration_ms": { "type": "number" },
+    "output_dir": { "type": "string" },
+    "platform_output_dir": { "type": "string" },
+    "task_events_file": { "type": "string" },
+    "task_state_file": { "type": "string" },
+    "task_report_file": { "type": "string" },
+    "platform_report": {
+      "type": ["object", "null"]
+    },
+    "counters": { "$ref": "task-state.schema.json#/$defs/counters" },
+    "summary_text": { "type": "string" },
+    "artifacts": {
+      "type": "array",
+      "items": { "$ref": "task-state.schema.json#/$defs/artifact" }
+    },
+    "recoverable": { "type": "boolean" },
+    "retriable": { "type": "boolean" },
+    "requires_human_action": { "type": "boolean" },
+    "failure_category": {
+      "type": "string",
+      "enum": [
+        "chrome_unreachable",
+        "opencli_unavailable",
+        "platform_not_logged_in",
+        "platform_access_unavailable",
+        "account_missing",
+        "database_unavailable",
+        "ai_unavailable",
+        "report_missing",
+        "report_damaged",
+        "unknown"
+      ]
+    },
+    "failure_title": { "type": "string" },
+    "next_actions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "repro_command": { "type": "string" },
+    "verification_commands": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "evidence_files": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "suggested_skill": { "type": "string" },
+    "harness_warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["category", "message", "next_actions"],
+        "additionalProperties": true,
+        "properties": {
+          "category": { "type": "string" },
+          "message": { "type": "string" },
+          "next_actions": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "error": { "type": "string" },
+    "stdout_bytes": { "type": "number" },
+    "stderr_bytes": { "type": "number" }
+  }
+}

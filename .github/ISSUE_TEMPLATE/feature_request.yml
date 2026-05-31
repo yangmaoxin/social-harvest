@@ -1,0 +1,40 @@
+name: Feature request
+description: 提议新的平台、命令、sink 或操作流程。
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 要解决的问题
+      description: 这个需求解决哪个操作者或开发者问题？
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议方案
+      description: 描述最小可用版本即可。
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 影响范围
+      options:
+        - CLI 命令
+        - 平台适配器
+        - Runner / 报告
+        - SCRM sink
+        - 飞书 sink
+        - 文档
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: 验证思路
+      description: 这个需求可以如何测试或手动验证？
+    validations:
+      required: false

@@ -1,0 +1,28 @@
+{
+  "id": "daily-weixin-channels-metrics",
+  "concurrency": "sequential",
+  "tasks": [
+    {
+      "task": "diagnostic",
+      "args": [
+        "--check-platforms",
+        "--platform",
+        "weixin-channels"
+      ]
+    },
+    {
+      "platform": "weixin-channels",
+      "task": "creator-account",
+      "args": [
+        "--sink-apply"
+      ]
+    },
+    {
+      "platform": "weixin-channels",
+      "task": "creator-content",
+      "args": [
+        "--sink-apply"
+      ]
+    }
+  ]
+}

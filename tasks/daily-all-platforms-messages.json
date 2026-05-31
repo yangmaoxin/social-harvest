@@ -1,0 +1,28 @@
+{
+  "id": "daily-all-platforms-messages",
+  "concurrency": "sequential",
+  "tasks": [
+    {
+      "task": "diagnostic",
+      "args": [
+        "--check-platforms"
+      ]
+    },
+    {
+      "platform": "weixin-channels",
+      "task": "creator-messages",
+      "args": [
+        "--sink-apply"
+      ]
+    },
+    {
+      "platform": "douyin",
+      "task": "creator-messages",
+      "args": [
+        "--message-limit",
+        "50",
+        "--sink-apply"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "social-harvest",
+  "version": "0.1.0",
+  "description": "AI-friendly CLI for social media data collection, structured reports, SCRM writes, and Feishu Base publishing.",
+  "author": "Maoxin Yang",
+  "private": false,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "check": "node scripts/agent-preflight.js --json",
+    "daily:douyin": "node scripts/run-douyin-daily.js",
+    "daily:douyin:full": "node scripts/run-daily-full.js douyin",
+    "daily:weixin-channels": "node scripts/run-weixin-channels-daily.js",
+    "daily:weixin-channels:full": "node scripts/run-daily-full.js weixin-channels",
+    "daily:all": "node scripts/run-daily-all.js",
+    "daily:all:full": "node scripts/run-daily-full.js all",
+    "daily:failed": "node scripts/run-daily-failed.js",
+    "history:douyin": "node scripts/run-history.js douyin",
+    "history:douyin-public": "node scripts/run-history.js douyin public-content",
+    "history:weixin-channels": "node scripts/run-history.js weixin-channels",
+    "publish:feishu": "node scripts/write-to-feishu-base.js",
+    "sink:run": "node scripts/run-sinks.js",
+    "share:run": "node scripts/live-share.js"
+  },
+  "dependencies": {
+    "@jackwener/opencli": "^1.8.0",
+    "ali-oss": "^6.23.0",
+    "mysql2": "^3.22.2",
+    "sharp": "^0.34.5"
+  },
+  "license": "Apache-2.0"
+}

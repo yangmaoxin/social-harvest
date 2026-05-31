@@ -1,0 +1,23 @@
+{
+  "id": "daily-douyin-messages",
+  "concurrency": "sequential",
+  "tasks": [
+    {
+      "task": "diagnostic",
+      "args": [
+        "--check-platforms",
+        "--platform",
+        "douyin"
+      ]
+    },
+    {
+      "platform": "douyin",
+      "task": "creator-messages",
+      "args": [
+        "--message-limit",
+        "50",
+        "--sink-apply"
+      ]
+    }
+  ]
+}

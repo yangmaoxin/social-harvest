@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS scrm_danmaku (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  danmaku_id VARCHAR(128) NOT NULL DEFAULT '' COMMENT '弹幕ID',
+  origin_type TINYINT NOT NULL DEFAULT 0 COMMENT '来源 1:视频号 2：抖音 3：小红书...',
+  account_id VARCHAR(191) NOT NULL DEFAULT '' COMMENT '账号唯一标识（抖音号 / 视频号ID 等平台公开账号标识）',
+  no VARCHAR(128) NOT NULL DEFAULT '' COMMENT '稿件编码',
+  comment_user_name VARCHAR(128) NOT NULL DEFAULT '' COMMENT '弹幕发送人名称',
+  comment_user_photo VARCHAR(1024) NOT NULL DEFAULT '' COMMENT '弹幕发送人头像URL',
+  content VARCHAR(1024) NOT NULL DEFAULT '' COMMENT '弹幕内容',
+  intention TINYINT NOT NULL DEFAULT 0 COMMENT '意向 0:未分析 1:无意向 2:低意向 3:中意向 4:高意向',
+  video_timestamp_ms BIGINT NOT NULL DEFAULT 0 COMMENT '视频内时间点（毫秒）',
+  video_timestamp_text VARCHAR(16) NOT NULL DEFAULT '' COMMENT '视频内时间点文本',
+  status TINYINT NOT NULL DEFAULT 1 COMMENT '状态',
+  created_at DATETIME NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_origin_danmaku (origin_type, danmaku_id),
+  KEY idx_origin_account (origin_type, account_id),
+  KEY idx_origin_no_created_at (origin_type, no, created_at),
+  KEY idx_origin_no_video_timestamp (origin_type, no, video_timestamp_ms)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='弹幕明细表';

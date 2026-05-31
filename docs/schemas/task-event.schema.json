@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://social-harvest.local/schemas/task-event.schema.json",
+  "title": "Social Harvest Task Event",
+  "type": "object",
+  "required": ["timestamp", "task_id", "status", "step", "message"],
+  "additionalProperties": true,
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "description": "ISO timestamp for the event."
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string"
+    },
+    "platform_label": {
+      "type": "string"
+    },
+    "task": {
+      "type": "string"
+    },
+    "task_label": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "default": "progress"
+    },
+    "source": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "running", "success", "warning", "partial", "failed", "cancelled"]
+    },
+    "step": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "output_dir": {
+      "type": "string"
+    },
+    "report_file": {
+      "type": "string"
+    },
+    "error": {
+      "type": "string"
+    },
+    "detail": {
+      "type": ["object", "array", "string", "number", "boolean", "null"]
+    }
+  }
+}

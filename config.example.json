@@ -1,0 +1,78 @@
+{
+  "_comment": "配置字段说明见 docs/config-reference.md；JSON 不支持 // 注释，所以这里只保留这一条说明。",
+  "ai": {
+    "base_url": "https://api-inference.modelscope.cn/v1",
+    "api_key": "your-modelscope-token",
+    "models": [
+      "ZhipuAI/GLM-5",
+      "Qwen/Qwen3.5-397B-A17B",
+      "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      "Qwen/Qwen3-Next-80B-A3B-Instruct",
+      "ZhipuAI/GLM-5.1",
+      "Qwen/Qwen3.5-35B-A3B",
+      "Qwen/Qwen3.5-27B",
+      "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+      "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+      "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B"
+    ],
+    "model": "ZhipuAI/GLM-5",
+    "enabled": true,
+    "ssl_verify": true,
+    "ca_file": "",
+    "timeout_seconds": 30,
+    "batch_size": 20
+  },
+  "sinks": {
+    "scrm": {
+      "type": "mysql",
+      "host": "your-mysql-host",
+      "user": "your-mysql-user",
+      "password": "your-mysql-password",
+      "db_name": "your-database-name",
+      "media": {
+        "backend": "oss",
+        "region": "oss-cn-beijing",
+        "bucket": "your-oss-bucket",
+        "access_key_id": "your-oss-access-key-id",
+        "access_key_secret": "your-oss-access-key-secret",
+        "prefix": "social-harvest",
+        "key_template": "{prefix}/{platform}/{account_id}/{yyyy}/{mm}/{entity_type}/{entity_id}/{image_type}.{ext}",
+        "public_base_url": "https://your-oss-bucket.oss-cn-beijing.aliyuncs.com"
+      }
+    },
+    "feishu": {
+      "app_id": "cli_xxx",
+      "app_secret": "your-feishu-app-secret",
+      "app_token": "your-base-app-token",
+      "table_prefix": "harvest",
+      "base_name": "Social Harvest 写入",
+      "api_base_url": "https://open.feishu.cn/open-apis"
+    }
+  },
+  "default_sinks": ["scrm"],
+  "platforms": {
+    "douyin": {
+      "sinks": ["scrm"],
+      "video_limit": 10,
+      "comment_limit": 10,
+      "with_replies": true,
+      "accounts": [
+        {
+          "id": "main",
+          "label": "抖音主账号",
+          "sec_uid": "MS4wLjABAAAA...",
+          "enabled": true
+        },
+        {
+          "id": "image-text-account",
+          "label": "图文账号",
+          "sec_uid": "MS4wLjABAAAA...",
+          "video_limit": 5,
+          "comment_limit": 5,
+          "with_replies": true,
+          "enabled": false
+        }
+      ]
+    }
+  }
+}
